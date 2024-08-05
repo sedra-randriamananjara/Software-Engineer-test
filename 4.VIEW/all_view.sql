@@ -118,7 +118,7 @@ FROM (
 WHERE rnk = 2;
 
 
-CREATE VIEW v_supplier_final AS 
+CREATE OR REPLACE VIEW v_supplier_final AS 
       SELECT
 	SUPPLIER_NAME,
 	SUPP_CONTACT_NAME,
