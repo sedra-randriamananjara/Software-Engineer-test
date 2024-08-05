@@ -1,0 +1,57 @@
+---CREATE TABLE XXBCM_SUPPLIERS 
+CREATE TABLE XXBCM_SUPPLIERS 
+   (	
+    SUPPLIER_ID INTEGER constraint XXBCM_SUPPLIERS_pk PRIMARY key , 
+	SUPPLIER_NAME VARCHAR2(100), 
+	SUPP_CONTACT_NAME VARCHAR2(50), 
+	SUPP_ADDRESS VARCHAR2(200), 
+	SUPP_CONTACT_1 varchar(20),
+	SUPP_CONTACT_2 varchar(20)
+	SUPP_EMAIL VARCHAR2(200) constraint unique_email unique 
+   )  ;
+   
+   
+----CREATE SEQUENCE SEQ_SUPPLIERS
+   CREATE SEQUENCE SEQ_SUPPLIERS
+		START WITH 1
+		INCREMENT BY 1
+		NOCACHE
+		NOCYCLE;	
+----TRIGGER auto-increment id in XXBCM_SUPPLIERS
+CREATE OR REPLACE TRIGGER 	increment_suppliers_id_trigger
+BEFORE INSERT ON XXBCM_SUPPLIERS
+FOR EACH ROW
+BEGIN
+    :NEW.SUPPLIER_id := SEQ_SUPPLIERS.NEXTVAL;
+END;
+   
+   
+-- ----Check is email 
+-- CREATE OR REPLACE FUNCTION isemail(email IN VARCHAR2) RETURN BOOLEAN IS
+-- BEGIN
+--     RETURN REGEXP_LIKE(email,
+--         '^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$',
+--         'IX');
+-- EXCEPTION
+--     WHEN OTHERS THEN
+--         RETURN FALSE;
+ -- END;
+
+
+
+-- ----Check is email 
+-- CREATE OR REPLACE TRIGGER check_SUPPLIERS_email_trigger
+-- BEFORE INSERT OR UPDATE ON XXBCM_SUPPLIERS
+-- FOR EACH ROW
+-- BEGIN
+--     IF NOT isemail(:NEW.SUPP_EMAIL) THEN
+--         :NEW.SUPP_EMAIL:=null;
+--    --     RAISE_APPLICATION_ERROR(-20001, 'Invalid email address.');
+--     END IF;
+-- END;
+
+
+
+
+
+

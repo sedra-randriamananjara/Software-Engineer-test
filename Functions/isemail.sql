@@ -1,0 +1,9 @@
+CREATE OR REPLACE FUNCTION isemail(email IN VARCHAR2) RETURN BOOLEAN IS
+BEGIN
+    RETURN REGEXP_LIKE(email,
+        '^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$',
+        'IX');
+EXCEPTION
+    WHEN OTHERS THEN
+        RETURN FALSE;
+END;
